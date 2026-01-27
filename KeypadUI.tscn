@@ -1,0 +1,131 @@
+[gd_scene load_steps=2 format=3 uid="uid://keypadui001"]
+
+[ext_resource type="Script" path="res://KeypadUI.gd" id="1_script"]
+
+[node name="KeypadUI" type="Panel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -200.0
+offset_right = 150.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "ENTER CODE"
+horizontal_alignment = 1
+
+[node name="CodeLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "____"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 3
+
+[node name="Btn1" type="Button" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "1"
+
+[node name="Btn2" type="Button" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "2"
+
+[node name="Btn3" type="Button" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "3"
+
+[node name="Btn4" type="Button" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "4"
+
+[node name="Btn5" type="Button" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "5"
+
+[node name="Btn6" type="Button" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "6"
+
+[node name="Btn7" type="Button" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "7"
+
+[node name="Btn8" type="Button" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "8"
+
+[node name="Btn9" type="Button" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "9"
+
+[node name="BtnClear" type="Button" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "CLR"
+
+[node name="Btn0" type="Button" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "0"
+
+[node name="BtnEnter" type="Button" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "ENT"
+
+[connection signal="pressed" from="VBoxContainer/GridContainer/Btn1" to="." method="press_digit" binds= ["1"]]
+[connection signal="pressed" from="VBoxContainer/GridContainer/Btn2" to="." method="press_digit" binds= ["2"]]
+[connection signal="pressed" from="VBoxContainer/GridContainer/Btn3" to="." method="press_digit" binds= ["3"]]
+[connection signal="pressed" from="VBoxContainer/GridContainer/Btn4" to="." method="press_digit" binds= ["4"]]
+[connection signal="pressed" from="VBoxContainer/GridContainer/Btn5" to="." method="press_digit" binds= ["5"]]
+[connection signal="pressed" from="VBoxContainer/GridContainer/Btn6" to="." method="press_digit" binds= ["6"]]
+[connection signal="pressed" from="VBoxContainer/GridContainer/Btn7" to="." method="press_digit" binds= ["7"]]
+[connection signal="pressed" from="VBoxContainer/GridContainer/Btn8" to="." method="press_digit" binds= ["8"]]
+[connection signal="pressed" from="VBoxContainer/GridContainer/Btn9" to="." method="press_digit" binds= ["9"]]
+[connection signal="pressed" from="VBoxContainer/GridContainer/BtnClear" to="." method="clear"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/Btn0" to="." method="press_digit" binds= ["0"]]
+[connection signal="pressed" from="VBoxContainer/GridContainer/BtnEnter" to="." method="enter"]

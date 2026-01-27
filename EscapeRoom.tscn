@@ -1,0 +1,243 @@
+[gd_scene load_steps=17 format=3 uid="uid://nexlfglsj8pr"]
+
+[ext_resource type="Texture2D" uid="uid://cgt32q72ysdef" path="res://escaperoom.png" id="1_p7rrm"]
+[ext_resource type="PackedScene" uid="uid://ciqxy83lbn7v" path="res://player.tscn" id="2_ghu3m"]
+[ext_resource type="PackedScene" uid="uid://cfqjolmle0juw" path="res://camera_2d.tscn" id="3_g6aif"]
+[ext_resource type="Script" uid="uid://cukp5bsw7by2b" path="res://KeypadUI.gd" id="4_g6aif"]
+[ext_resource type="Script" uid="uid://bw53y4jsy1iuk" path="res://EscapeRoom.gd" id="5_escroom"]
+[ext_resource type="Script" uid="uid://dv4noy430f0k2" path="res://KeypadZone.gd" id="6_keyzone"]
+
+[sub_resource type="GDScript" id="GDScript_7rnao"]
+script/source = "extends Camera2D
+
+func _ready() -> void:
+	limit_left = 0
+	limit_top = 0
+	limit_right = 1536
+	limit_bottom = 1024
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7rnao"]
+size = Vector2(147, 153)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cqjrp"]
+size = Vector2(80, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h8b37"]
+size = Vector2(762.5, 221)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w1evd"]
+size = Vector2(18.5, 524)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_witnn"]
+size = Vector2(14, 542)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l30hv"]
+size = Vector2(631, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ux6o4"]
+size = Vector2(656, 89.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4p767"]
+size = Vector2(326, 358)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a3gu0"]
+size = Vector2(725, 55.5)
+
+[node name="EscapeRoom" type="Node2D"]
+script = ExtResource("5_escroom")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(770, 507)
+texture = ExtResource("1_p7rrm")
+
+[node name="Player" parent="." instance=ExtResource("2_ghu3m")]
+position = Vector2(831, 902)
+
+[node name="Camera2D" parent="Player" instance=ExtResource("3_g6aif")]
+script = SubResource("GDScript_7rnao")
+
+[node name="ExitDoor" type="Area2D" parent="."]
+position = Vector2(1144, 373)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitDoor"]
+position = Vector2(6.5, -88.5)
+shape = SubResource("RectangleShape2D_7rnao")
+
+[node name="KeypadZone" type="Area2D" parent="."]
+position = Vector2(1018, 275)
+script = ExtResource("6_keyzone")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KeypadZone"]
+shape = SubResource("RectangleShape2D_cqjrp")
+
+[node name="Prompt" type="Label" parent="KeypadZone"]
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = -57.0
+text = "E"
+horizontal_alignment = 1
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="KeypadUI" type="Panel" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -200.0
+offset_right = 150.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_g6aif")
+
+[node name="VBox" type="VBoxContainer" parent="UI/KeypadUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="UI/KeypadUI/VBox"]
+layout_mode = 2
+text = "ENTER CODE"
+horizontal_alignment = 1
+
+[node name="CodeLabel" type="Label" parent="UI/KeypadUI/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "____"
+horizontal_alignment = 1
+
+[node name="Grid" type="GridContainer" parent="UI/KeypadUI/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 3
+
+[node name="Btn1" type="Button" parent="UI/KeypadUI/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "1"
+
+[node name="Btn2" type="Button" parent="UI/KeypadUI/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "2"
+
+[node name="Btn3" type="Button" parent="UI/KeypadUI/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "3"
+
+[node name="Btn4" type="Button" parent="UI/KeypadUI/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "4"
+
+[node name="Btn5" type="Button" parent="UI/KeypadUI/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "5"
+
+[node name="Btn6" type="Button" parent="UI/KeypadUI/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "6"
+
+[node name="Btn7" type="Button" parent="UI/KeypadUI/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "7"
+
+[node name="Btn8" type="Button" parent="UI/KeypadUI/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "8"
+
+[node name="Btn9" type="Button" parent="UI/KeypadUI/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "9"
+
+[node name="BtnClear" type="Button" parent="UI/KeypadUI/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "CLR"
+
+[node name="Btn0" type="Button" parent="UI/KeypadUI/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "0"
+
+[node name="BtnEnter" type="Button" parent="UI/KeypadUI/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "ENT"
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="Wall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(481.75, 274.5)
+shape = SubResource("RectangleShape2D_h8b37")
+
+[node name="Wall2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(112.75, 650)
+shape = SubResource("RectangleShape2D_w1evd")
+
+[node name="WAll" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1431, 435)
+shape = SubResource("RectangleShape2D_witnn")
+
+[node name="Wall3" type="CollisionShape2D" parent="Walls"]
+position = Vector2(418.5, 925)
+shape = SubResource("RectangleShape2D_l30hv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1121, 204.25)
+shape = SubResource("RectangleShape2D_ux6o4")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1269, 743)
+shape = SubResource("RectangleShape2D_4p767")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1077.5, 929.25)
+shape = SubResource("RectangleShape2D_a3gu0")
+
+[connection signal="body_entered" from="KeypadZone" to="KeypadZone" method="_on_body_entered"]
+[connection signal="body_exited" from="KeypadZone" to="KeypadZone" method="_on_body_exited"]
+[connection signal="pressed" from="UI/KeypadUI/VBox/Grid/Btn1" to="UI/KeypadUI" method="press_digit" binds= ["1"]]
+[connection signal="pressed" from="UI/KeypadUI/VBox/Grid/Btn2" to="UI/KeypadUI" method="press_digit" binds= ["2"]]
+[connection signal="pressed" from="UI/KeypadUI/VBox/Grid/Btn3" to="UI/KeypadUI" method="press_digit" binds= ["3"]]
+[connection signal="pressed" from="UI/KeypadUI/VBox/Grid/Btn4" to="UI/KeypadUI" method="press_digit" binds= ["4"]]
+[connection signal="pressed" from="UI/KeypadUI/VBox/Grid/Btn5" to="UI/KeypadUI" method="press_digit" binds= ["5"]]
+[connection signal="pressed" from="UI/KeypadUI/VBox/Grid/Btn6" to="UI/KeypadUI" method="press_digit" binds= ["6"]]
+[connection signal="pressed" from="UI/KeypadUI/VBox/Grid/Btn7" to="UI/KeypadUI" method="press_digit" binds= ["7"]]
+[connection signal="pressed" from="UI/KeypadUI/VBox/Grid/Btn8" to="UI/KeypadUI" method="press_digit" binds= ["8"]]
+[connection signal="pressed" from="UI/KeypadUI/VBox/Grid/Btn9" to="UI/KeypadUI" method="press_digit" binds= ["9"]]
+[connection signal="pressed" from="UI/KeypadUI/VBox/Grid/BtnClear" to="UI/KeypadUI" method="clear"]
+[connection signal="pressed" from="UI/KeypadUI/VBox/Grid/Btn0" to="UI/KeypadUI" method="press_digit" binds= ["0"]]
+[connection signal="pressed" from="UI/KeypadUI/VBox/Grid/BtnEnter" to="UI/KeypadUI" method="enter"]
