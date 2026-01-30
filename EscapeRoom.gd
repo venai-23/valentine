@@ -40,6 +40,6 @@ func _on_exit_door_entered(body: Node) -> void:
 		return
 	if keypad_solved:
 		# Change to your next scene
-		SceneManager.change_scene_faded("res://Main.tscn")
+		SceneManager.change_scene_faded("res://ConcertLevel.tscn")
 	else:
 		print("The door is locked. Enter the code on the keypad.")

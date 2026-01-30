@@ -1,11 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://br2su845oslf1"]
+[gd_scene load_steps=16 format=3 uid="uid://br2su845oslf1"]
 
 [ext_resource type="PackedScene" uid="uid://corqbcd430ebt" path="res://intro.tscn" id="1_r0du0"]
 [ext_resource type="Texture2D" uid="uid://u0m1goj45rpl" path="res://intro_background.png" id="2_cm0pq"]
 [ext_resource type="Script" uid="uid://ded4g2l2hurtk" path="res://intro.gd" id="2_fos0i"]
 [ext_resource type="PackedScene" uid="uid://ciqxy83lbn7v" path="res://player.tscn" id="3_fos0i"]
 [ext_resource type="PackedScene" uid="uid://cfqjolmle0juw" path="res://camera_2d.tscn" id="4_fos0i"]
-[ext_resource type="Script" uid="uid://du8f2wlwicu20" path="res://door_trigger.gd" id="6_3dxm6"]
 
 [sub_resource type="GDScript" id="GDScript_cm0pq"]
 script/source = "extends Camera2D
@@ -146,19 +145,25 @@ offset_bottom = 81.831985
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Door Trigger" type="Area2D" parent="Intro"]
-script = ExtResource("6_3dxm6")
-target_scene = "uid://nexlfglsj8pr"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Intro/Door Trigger"]
-position = Vector2(772.5, 983.5)
-shape = SubResource("RectangleShape2D_wkp8b")
-
 [node name="spawns" type="Node2D" parent="Intro"]
 
 [node name="Default" type="Marker2D" parent="Intro/spawns"]
 position = Vector2(739, 486)
 
+[node name="ExitDoor" type="Node2D" parent="."]
+
+[node name="Door Trigger" type="Area2D" parent="ExitDoor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitDoor/Door Trigger"]
+position = Vector2(772.5, 983.5)
+shape = SubResource("RectangleShape2D_wkp8b")
+
+[node name="DoorBlocker" type="StaticBody2D" parent="ExitDoor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitDoor/DoorBlocker"]
+position = Vector2(772.5, 983.5)
+shape = SubResource("RectangleShape2D_wkp8b")
+
 [connection signal="body_entered" from="Intro/Note" to="Intro" method="_on_note_body_entered"]
 [connection signal="body_exited" from="Intro/Note" to="Intro" method="_on_note_body_exited"]
-[connection signal="body_entered" from="Intro/Door Trigger" to="Intro/Door Trigger" method="_on_body_entered"]
+[connection signal="body_entered" from="ExitDoor/Door Trigger" to="ExitDoor/Door Trigger" method="_on_body_entered"]

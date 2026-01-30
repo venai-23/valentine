@@ -4,9 +4,12 @@ extends Node2D
 @onready var dialogue_box: Panel = $UI/DialogueBox
 @onready var dialogue_text: Label = $UI/DialogueBox/DialogueText
 @onready var note_prompt := $Note/Prompt
+@onready var exit_door: Area2D = get_node_or_null("../ExitDoor/Door Trigger")
+@onready var door_blocker: StaticBody2D = get_node_or_null("../ExitDoor/DoorBlocker")
 
 var near_note := false
 var reading_note := false
+var note_read := false
 
 var note_lines := [
 	"Tamara: A note…",
@@ -18,6 +21,9 @@ var note_index := 0
 func _ready() -> void:
 	dialogue_box.visible = false
 	note_prompt.visible = false
+	if exit_door:
+		exit_door.set_deferred("monitoring", false)  # Disable until note is read
+		exit_door.body_entered.connect(_on_exit_entered)
 
 func _input(event: InputEvent) -> void:
 	
@@ -56,9 +62,11 @@ func _end_note() -> void:
 	reading_note = false
 	dialogue_box.visible = false
 	player.can_move = true
-
-	# OPTIONAL: after reading the note, you can trigger a scene change to Hub here
-	# get_tree().change_scene_to_file("res://Hub.tscn")
+	note_read = true
+	if exit_door:
+		exit_door.monitoring = true  # Enable exit trigger now that note is read
+	if door_blocker:
+		door_blocker.queue_free()  # Remove the physical barrier
 
 func _on_note_body_entered(body: Node) -> void:
 	if body == player:
@@ -70,3 +78,9 @@ func _on_note_body_exited(body: Node) -> void:
 	if body == player:
 		near_note = false
 		note_prompt.visible = false
+
+func _on_exit_entered(body: Node) -> void:
+	if not body.is_in_group("player"):
+		return
+	player.can_move = false
+	SceneManager.change_scene_faded("res://EscapeRoom.tscn")
