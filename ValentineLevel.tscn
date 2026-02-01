@@ -1,0 +1,161 @@
+[gd_scene load_steps=13 format=3 uid="uid://jremmdymu2op"]
+
+[ext_resource type="Script" uid="uid://bcruc5t1igbhf" path="res://ValentineLevel.gd" id="1_valentine"]
+[ext_resource type="Texture2D" uid="uid://6mbpenn2q4wm" path="res://lastlevel_assets/background.png" id="2_background"]
+[ext_resource type="PackedScene" uid="uid://ciqxy83lbn7v" path="res://player.tscn" id="3_player"]
+[ext_resource type="Texture2D" uid="uid://qr4hxx0tjmjq" path="res://lastlevel_assets/venai_character.png" id="4_venai"]
+[ext_resource type="Texture2D" uid="uid://dvm5vrmhlaywn" path="res://lastlevel_assets/letter_icon.png" id="5_letter"]
+[ext_resource type="Texture2D" uid="uid://btj4k0xh8je8t" path="res://lastlevel_assets/letter_panel.png" id="6_panel"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_venai"]
+size = Vector2(180, 150)
+
+[sub_resource type="GDScript" id="GDScript_cam"]
+script/source = "extends Camera2D
+
+func _ready() -> void:
+	limit_left = 0
+	limit_top = 0
+	limit_right = 1536
+	limit_bottom = 1024
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_top"]
+size = Vector2(1400, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_left"]
+size = Vector2(80, 900)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_right"]
+size = Vector2(80, 900)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_bottom"]
+size = Vector2(1400, 80)
+
+[node name="ValentineLevel" type="Node2D"]
+script = ExtResource("1_valentine")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(768, 512)
+texture = ExtResource("2_background")
+
+[node name="Venai" type="Area2D" parent="."]
+position = Vector2(768, 380)
+
+[node name="VenaiSprite" type="Sprite2D" parent="Venai"]
+position = Vector2(215.99995, -189.99997)
+scale = Vector2(1.0817086, 1.1229167)
+texture = ExtResource("4_venai")
+region_enabled = true
+region_rect = Rect2(0, 0, 341, 384)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Venai"]
+position = Vector2(253, 0)
+shape = SubResource("RectangleShape2D_venai")
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+z_index = 1
+position = Vector2(1369, 745)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+script = SubResource("GDScript_cam")
+
+[node name="LetterSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(768, 350)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_letter")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PromptLabel" type="Label" parent="UI"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -80.0
+offset_right = 200.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 24
+text = "Press E to interact"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ValentinePanel" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -384.0
+offset_top = -256.0
+offset_right = 384.0
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(384, 256)
+
+[node name="PanelTexture" type="TextureRect" parent="UI/ValentinePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_panel")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="YesButton" type="Button" parent="UI/ValentinePanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.75
+anchor_right = 0.42
+anchor_bottom = 0.88
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+flat = true
+
+[node name="NoButton" type="Button" parent="UI/ValentinePanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.58
+anchor_top = 0.75
+anchor_right = 0.85
+anchor_bottom = 0.88
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+flat = true
+
+[node name="HeartParticles" type="Node2D" parent="."]
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="TopWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(788, 74)
+shape = SubResource("RectangleShape2D_wall_top")
+
+[node name="LeftWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(40, 512)
+shape = SubResource("RectangleShape2D_wall_left")
+
+[node name="RightWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1496, 512)
+shape = SubResource("RectangleShape2D_wall_right")
+
+[node name="BottomWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(768, 984)
+shape = SubResource("RectangleShape2D_wall_bottom")

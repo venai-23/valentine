@@ -484,13 +484,13 @@ func _complete_level() -> void:
 
 	# Show completion panel
 	completion_panel.visible = true
-	narrative_label.text = "The warm scent of pine tart fills the kitchen...\n\nA taste of home, made with love."
+	narrative_label.text = "Good job!"
 
 	# Wait for player input
 	await _wait_for_input()
 
 	# Transition to next level
-	SceneManager.change_scene_faded("res://NextLevel.tscn")
+	SceneManager.change_scene_faded("res://ValentineLevel.tscn")
 
 
 func _wait_for_input() -> void:

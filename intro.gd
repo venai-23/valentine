@@ -12,9 +12,9 @@ var reading_note := false
 var note_read := false
 
 var note_lines := [
-	"Tamara: A note…",
-	"Note: \"Find our four memories. They’ll lead you to me.\"",
-	"Tamara: Okay… I’m coming."
+	"Tamara: A note from Venai...",
+	"Note: \"Get through 3 levels from our dates to find me.\"",
+	"Tamara: Alright, let's go."
 ]
 var note_index := 0
 
