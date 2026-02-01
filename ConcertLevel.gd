@@ -76,4 +76,4 @@ func _on_exit_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		if music:
 			music.stop()
-		SceneManager.change_scene_faded("res://NextLevel.tscn")
+		SceneManager.change_scene_faded("res://PineTartLevel.tscn")

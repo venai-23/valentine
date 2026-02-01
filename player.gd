@@ -7,6 +7,12 @@ var last_dir := Vector2.DOWN
 var can_move := true
 
 func _physics_process(_delta: float) -> void:
+	if not can_move:
+		velocity = Vector2.ZERO
+		anim.stop()
+		move_and_slide()
+		return
+
 	var dir := Vector2(
 		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
 		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")

@@ -1,0 +1,277 @@
+[gd_scene load_steps=20 format=3 uid="uid://bqmf5166rw65d"]
+
+[ext_resource type="Script" uid="uid://t8p7axhmdrob" path="res://PineTartLevel.gd" id="1_pinetart"]
+[ext_resource type="Texture2D" uid="uid://dchgclheydsm8" path="res://pinetart_assets/kitchen_background.png" id="2_kitchen"]
+[ext_resource type="PackedScene" uid="uid://ciqxy83lbn7v" path="res://player.tscn" id="3_player"]
+[ext_resource type="Texture2D" uid="uid://vnjq66shviyr" path="res://pinetart_assets/mixing_bowl.png" id="4_bowl"]
+[ext_resource type="Texture2D" uid="uid://c8eta4psewho0" path="res://pinetart_assets/dough_states.png" id="5_dough"]
+[ext_resource type="Texture2D" uid="uid://ytaxujqdead8" path="res://pinetart_assets/butter_pieces.png" id="6_butter"]
+[ext_resource type="Texture2D" uid="uid://com1phomv2p1i" path="res://pinetart_assets/stove_off:on.png" id="7_stove"]
+[ext_resource type="Texture2D" uid="uid://ck25xr2488bta" path="res://pinetart_assets/pineapplefilling.png" id="8_filling"]
+[ext_resource type="Texture2D" uid="uid://cquy2yys0dqd7" path="res://pinetart_assets/pinetart_assembly.png" id="9_assembly"]
+[ext_resource type="Texture2D" uid="uid://boyow2tgykm6m" path="res://pinetart_assets/final_pinetart.png" id="10_finaltart"]
+
+[sub_resource type="GDScript" id="GDScript_cam"]
+script/source = "extends Camera2D
+
+func _ready() -> void:
+	limit_left = 0
+	limit_top = 0
+	limit_right = 1536
+	limit_bottom = 1024
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mixing"]
+size = Vector2(150, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_stove"]
+size = Vector2(140, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_assembly"]
+size = Vector2(200, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oven"]
+size = Vector2(140, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_top"]
+size = Vector2(1400, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_left"]
+size = Vector2(80, 600)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_right"]
+size = Vector2(80, 600)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_bottom"]
+size = Vector2(1400, 80)
+
+[node name="PineTartLevel" type="Node2D"]
+script = ExtResource("1_pinetart")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(778, 512)
+texture = ExtResource("2_kitchen")
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+z_index = 1
+position = Vector2(768, 850)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+script = SubResource("GDScript_cam")
+
+[node name="Stations" type="Node2D" parent="."]
+
+[node name="MixingStation" type="Area2D" parent="Stations"]
+position = Vector2(1300, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stations/MixingStation"]
+position = Vector2(-11, 3)
+shape = SubResource("RectangleShape2D_mixing")
+
+[node name="BowlSprite" type="Sprite2D" parent="Stations/MixingStation"]
+position = Vector2(19.499966, -192.50002)
+scale = Vector2(0.263672, 0.25683588)
+texture = ExtResource("4_bowl")
+hframes = 2
+
+[node name="DoughCrumbly" type="Sprite2D" parent="Stations/MixingStation"]
+visible = false
+position = Vector2(19.999989, -199)
+scale = Vector2(0.30078128, 0.3222656)
+texture = ExtResource("5_dough")
+region_enabled = true
+region_rect = Rect2(141.93848, 0, 416.8125, 1024)
+
+[node name="DoughPerfect" type="Sprite2D" parent="Stations/MixingStation"]
+visible = false
+position = Vector2(19.999989, -199)
+scale = Vector2(0.30078128, 0.3222656)
+texture = ExtResource("5_dough")
+region_enabled = true
+region_rect = Rect2(553, 0, 432, 1024)
+
+[node name="DoughOverworked" type="Sprite2D" parent="Stations/MixingStation"]
+visible = false
+position = Vector2(19.999989, -199)
+scale = Vector2(0.30078128, 0.3222656)
+texture = ExtResource("5_dough")
+region_enabled = true
+region_rect = Rect2(990.9375, 0, 410.0625, 1024)
+
+[node name="ButterSprite" type="Sprite2D" parent="Stations/MixingStation"]
+position = Vector2(13.000032, -217)
+scale = Vector2(0.18749978, 0.18750001)
+texture = ExtResource("6_butter")
+hframes = 2
+vframes = 2
+
+[node name="StoveStation" type="Area2D" parent="Stations"]
+position = Vector2(250, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stations/StoveStation"]
+position = Vector2(133, 8)
+shape = SubResource("RectangleShape2D_stove")
+
+[node name="StoveOff" type="Sprite2D" parent="Stations/StoveStation"]
+visible = false
+position = Vector2(125.00001, -107)
+scale = Vector2(0.50781256, 0.53222656)
+texture = ExtResource("7_stove")
+region_enabled = true
+region_rect = Rect2(133.50098, 0, 545.0625, 1024)
+
+[node name="StoveOn" type="Sprite2D" parent="Stations/StoveStation"]
+visible = false
+position = Vector2(125.00001, -107)
+scale = Vector2(0.50781256, 0.53222656)
+texture = ExtResource("7_stove")
+region_enabled = true
+region_rect = Rect2(860.8135, 0, 533.25, 1024)
+
+[node name="FillingWatery" type="Sprite2D" parent="Stations/StoveStation"]
+visible = false
+position = Vector2(182.00002, -182)
+scale = Vector2(0.28867182, 0.28134766)
+texture = ExtResource("8_filling")
+region_enabled = true
+region_rect = Rect2(0, 0, 512, 1024)
+
+[node name="FillingBubbling" type="Sprite2D" parent="Stations/StoveStation"]
+visible = false
+position = Vector2(182.00002, -182)
+scale = Vector2(0.28867182, 0.28134766)
+texture = ExtResource("8_filling")
+region_enabled = true
+region_rect = Rect2(512, 0, 512, 1024)
+
+[node name="FillingThick" type="Sprite2D" parent="Stations/StoveStation"]
+visible = false
+position = Vector2(182.00002, -182)
+scale = Vector2(0.28867182, 0.28134766)
+texture = ExtResource("8_filling")
+region_enabled = true
+region_rect = Rect2(1024, 0, 512, 1024)
+
+[node name="AssemblyStation" type="Area2D" parent="Stations"]
+position = Vector2(768, 750)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stations/AssemblyStation"]
+position = Vector2(-14, -62)
+shape = SubResource("RectangleShape2D_assembly")
+
+[node name="AssemblySprite" type="Sprite2D" parent="Stations/AssemblyStation"]
+position = Vector2(-90.49997, -98.5)
+scale = Vector2(0.41210946, 0.334961)
+texture = ExtResource("9_assembly")
+hframes = 3
+
+[node name="OvenStation" type="Area2D" parent="Stations"]
+position = Vector2(250, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stations/OvenStation"]
+position = Vector2(135, 7)
+shape = SubResource("RectangleShape2D_oven")
+
+[node name="OvenSprite" type="Sprite2D" parent="Stations/OvenStation"]
+visible = false
+position = Vector2(127.500015, -107.000015)
+scale = Vector2(0.5351562, 0.5371094)
+texture = ExtResource("7_stove")
+hframes = 2
+
+[node name="TartSprite" type="Sprite2D" parent="Stations/OvenStation"]
+visible = false
+position = Vector2(193.05005, -201)
+rotation = 0.04654711
+scale = Vector2(0.14371772, 0.16972846)
+texture = ExtResource("10_finaltart")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PromptLabel" type="Label" parent="UI"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -80.0
+offset_right = 200.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 24
+text = "Press E to interact"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CompletionPanel" type="Panel" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -100.0
+offset_right = 250.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NarrativeLabel" type="Label" parent="UI/CompletionPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "The warm scent of pine tart fills the kitchen..."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="ContinueLabel" type="Label" parent="UI/CompletionPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -30.0
+offset_right = 80.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 14
+text = "Press E to continue..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="TopWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(768, 420)
+shape = SubResource("RectangleShape2D_wall_top")
+
+[node name="LeftWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(100, 700)
+shape = SubResource("RectangleShape2D_wall_left")
+
+[node name="RightWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1436, 700)
+shape = SubResource("RectangleShape2D_wall_right")
+
+[node name="BottomWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(768, 960)
+shape = SubResource("RectangleShape2D_wall_bottom")
